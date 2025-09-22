@@ -1,0 +1,92 @@
+1)Custom concepts:
+1)For _NationalhighwayM23_
+CLASSIFIER:M23
+CLASSIFIER:j4
+CLASSIFIER:j3
+2)For _NationalhighwayM25_
+CLASSIFIER:M25
+CLASSIFIER:traffic
+3)For _Road_
+CLASSIFIER:A243
+CLASSIFIER:j8
+CLASSIFIER:j9
+CLASSIFIER:j10
+CLASSIFIER:j2
+CLASSIFIER:j3
+4)For _news_
+CLASSIFIER:collision
+CLASSIFIER:guildford
+CLASSIFIER:bridge
+CLASSIFIER:traffic
+CLASSIFIER:road
+
+2)Similarity score:
+ 
+Figure 29: Similarity score 
+
+3)Sentiment code:
+/*****************************************************************
+* SAS Visual Text Analytics
+* Sentiment Score Code
+*
+* Modify the following macro variables to match your needs.
+****************************************************************/
+
+/* specifies CAS library information for the CAS table that you would like to score. You must modify the value to provide the name of the library that contains the table to be scored. */
+%let input_caslib_name = "CASUSER";
+
+/* specifies the CAS table you would like to score. You must modify the value to provide the name of the input table, such as "MyTable". Do not include an extension. */
+%let input_table_name = "TWEETS_2022";
+
+/* specifies the column in the CAS table that contains a unique document identifier. You must modify the value to provide the name of the document identifer column in the table. */
+%let key_column = "ID";
+
+/* specifies the column in the CAS table that contains the text data to score. You must modify the value to provide the name of the text column in the table. */
+%let document_column = "Text";
+
+/* specifies the CAS library to write the score output tables. You must modify the value to provide the name of the library that will contain the output tables that the score code produces. */
+%let output_caslib_name = "CASUSER";
+
+/* specifies the sentiment output CAS table to produce */
+%let output_sentiment_table_name = "tweets_out_sentiment";
+
+/* specifies the matches output CAS table to produce */
+%let output_matches_table_name = "tweets_out_sent_matches";
+
+/* specifies the features output CAS table to produce */
+%let output_features_table_name = "tweets_out_sent_features";
+
+/* specifies the language of the associated SAS Visual Text Analytics project. This should be set automatically to the language you selected when you created your project. */
+%let language = "ENGLISH";
+
+/* specifies the hostname for the CAS server. This should be set automatically to the host for the associated SAS Visual Text Analytics project. */
+%let cas_server_hostname = "pdcesx23057.exnet.sas.com";
+
+/* specifies the port for the CAS server. This should be set automatically to the host for the associated SAS Visual Text Analytics project. */
+%let cas_server_port = 5570;
+
+/* creates a session */
+cas sascas1 host=&cas_server_hostname port=&cas_server_port;
+libname sascas1 cas sessref=sascas1 datalimit=all;
+
+/* calls the scoring action */
+proc cas;
+    session sascas1;
+    loadactionset "sentimentAnalysis";
+
+    action applySent;
+        param
+            table={caslib=&input_caslib_name, name=&input_table_name}
+            docId=&key_column
+            text=&document_column
+            language=&language
+            casOut={caslib=&output_caslib_name, name=&output_sentiment_table_name, replace=TRUE}
+            matchOut={caslib=&output_caslib_name, name=&output_matches_table_name, replace=TRUE}
+            featureOut={caslib=&output_caslib_name, name=&output_features_table_name, replace=TRUE}
+        ;
+    run;
+quit;
+4.	Category :
+(OR,(AND,"collision"),(AND,"collision"),(AND,"accident"),(AND,"m25"))
+(OR,(AND,"m25"),(AND,"road"),(AND,"accident"),(AND,"traffic"),(AND,"j8"))
+(OR,(AND,"traffic"),(AND,"accident"),(AND,"scene"),(AND,"m23"))
