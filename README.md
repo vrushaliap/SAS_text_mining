@@ -1,7 +1,7 @@
 # SAS_text_mining
 # Traffic Accident Severity Prediction & Text Analytics (SAS)
 
-This repository contains an academic project by **Vrushali Ankit Patil** for the module *Data Mining and Text Analytics with Application in SAS*.  The project explores **UK road traffic accident data** and **tweets about accidents in Surrey**, applying **data mining, predictive modeling, and text analytics** using SAS Viya.
+This repository contains an academic project for the module *Data Mining and Text Analytics with Application in SAS*.  The project explores **UK road traffic accident data** and **tweets about accidents in Surrey**, applying **data mining, predictive modeling, and text analytics** using SAS Viya.
 
 ## 📖 Project Overview
 The project is divided into four main tasks:
